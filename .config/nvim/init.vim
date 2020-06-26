@@ -10,15 +10,23 @@ endif
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'jreybert/vimagit'
-Plug 'lukesmithxyz/vimling'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
-Plug 'kovetskiy/sxhkd-vim'
-Plug 'ap/vim-css-color'
+
+"Programming
+Plug 'jiangmiao/auto-pairs'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'natebosch/vim-lsc'
+Plug 'ryanoasis/vim-devicons'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lervag/vimtex'
+
+"Flutter & dart Plugs
+Plug 'natebosch/vim-lsc-dart'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'torta/flutter-lazy.vim'
 call plug#end()
 
 set bg=light
@@ -38,6 +46,9 @@ set clipboard+=unnamedplus
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+  set colorcolumn=80
+  set ruler
+  highlight ColorColumn ctermbg=darkgray
 
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
@@ -49,13 +60,24 @@ set clipboard+=unnamedplus
 	set splitbelow splitright
 
 " Nerd tree
-	map <leader>n :NERDTreeToggle<CR>
+	map <C-n> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     if has('nvim')
         let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
     else
         let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
     endif
+
+" esc remap
+  inoremap kj <Esc>
+  inoremap jk <Esc>
+
+
+"split navigation
+  noremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
 
 " vimling:
 	nm <leader>d :call ToggleDeadKeys()<CR>
